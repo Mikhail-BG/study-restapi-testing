@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Test-class Suite" verbose="1" parallel="tests" thread-count="1" preserve-order="false">
+    <test name="all-tests">
+        <packages>
+            <package name="com.study.restapi.weather"/>
+        </packages>
+    </test>
+</suite>

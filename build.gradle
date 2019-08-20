@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'idea'
+}
+
+group 'TrainingRESTAPI'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        java.srcDirs = ['src/main/java']
+        resources.srcDirs = ['src/main/resources']
+    }
+    test {
+        java.srcDirs = ['src/test/java']
+        resources.srcDirs = ['src/test/resources']
+    }
+}
+
+dependencies {
+    implementation 'org.testng:testng:+'
+    implementation 'io.rest-assured:rest-assured:+'
+    implementation 'log4j:log4j:+'
+    implementation 'org.apache.commons:commons-collections4:+'
+    implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:+'
+}
+
+configurations {
+    integrationCompile.extendsFrom testCompile
+    integrationRuntime.extendsFrom testRuntime
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.0'
+}
+
+test {
+    useTestNG() {
+        suites 'src/test/resources/testng.xml'
+    }
+}
