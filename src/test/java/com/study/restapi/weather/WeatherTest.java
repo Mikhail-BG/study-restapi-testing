@@ -1,10 +1,11 @@
 package com.study.restapi.weather;
 
+import org.apache.http.HttpStatus;
 import org.testng.annotations.Test;
 
+import com.study.restapi.config.property.WeatherParameter;
 import com.study.restapi.config.property.WeatherProperty;
 import io.restassured.RestAssured;
-import io.restassured.response.Response;
 
 public class WeatherTest
 {
@@ -12,10 +13,14 @@ public class WeatherTest
     @Test
     public void Test()
     {
-        Response response = RestAssured
+        RestAssured
+                .given()
+                .param(WeatherParameter.ID.getParameter(), WeatherParameter.ID.getValue())
+                .param(WeatherParameter.APPID.getParameter(), WeatherParameter.APPID.getValue())
                 .when()
-                .get("http://api.openweathermap.org/data/2.5/forecast?id=524901&APPID=" + WeatherProperty.API_KEY);
-
-        response.getStatusCode();
+                .get(WeatherProperty.WEATHER_FORECAST_URL)
+                .then()
+                .assertThat()
+                .statusCode(HttpStatus.SC_OK);
     }
 }
