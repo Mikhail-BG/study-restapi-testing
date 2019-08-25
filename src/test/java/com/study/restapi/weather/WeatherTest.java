@@ -3,8 +3,8 @@ package com.study.restapi.weather;
 import org.apache.http.HttpStatus;
 import org.testng.annotations.Test;
 
-import com.study.restapi.config.property.WeatherParameter;
-import com.study.restapi.config.property.WeatherProperty;
+import com.study.restapi.config.property.weather.WeatherParameter;
+import com.study.restapi.config.property.weather.WeatherProperty;
 import io.restassured.RestAssured;
 
 public class WeatherTest
@@ -13,12 +13,14 @@ public class WeatherTest
     @Test
     public void Test()
     {
+        WeatherParameter weatherParameter = WeatherParameter.getInstance();
+        WeatherProperty weatherProperty = WeatherProperty.getInstance();
         RestAssured
                 .given()
-                .param(WeatherParameter.ID.getParameter(), WeatherParameter.ID.getValue())
-                .param(WeatherParameter.APPID.getParameter(), WeatherParameter.APPID.getValue())
+                .param(weatherParameter.getId().getParameter(), weatherParameter.getId().getValue())
+                .param(weatherParameter.getAppid().getParameter(), weatherParameter.getAppid().getValue())
                 .when()
-                .get(WeatherProperty.WEATHER_FORECAST_URL)
+                .get(weatherProperty.getWeatherForecastUrl())
                 .then()
                 .assertThat()
                 .statusCode(HttpStatus.SC_OK);
