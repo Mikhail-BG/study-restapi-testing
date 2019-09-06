@@ -3,35 +3,24 @@ package com.study.restapi.config.property.weather;
 import com.study.restapi.config.LocalJasyptEncryptor;
 import com.study.restapi.config.property.AbstractPropertyHolder;
 
-public final class WeatherProperty extends AbstractPropertyHolder
+public final class WeatherProperty extends AbstractPropertyHolder<WeatherParameter>
 {
-    private static WeatherProperty instance;
-
     private String weatherForecastUrl;
     private String user;
     private String password;
 
-    private WeatherProperty()
+    public WeatherProperty()
     {
-        super("/weather.properties");
+        super("/server/weather.properties");
         this.weatherForecastUrl = getProperties().getProperty("weather_forecast_url");
         this.user = LocalJasyptEncryptor.stringEncryptor().decrypt(getProperties().getProperty("user"));
         this.password = LocalJasyptEncryptor.stringEncryptor().decrypt(getProperties().getProperty("password"));
     }
 
-    public static synchronized WeatherProperty getInstance()
+    @Override
+    public WeatherParameter loadParameters()
     {
-        if (instance == null)
-        {
-            synchronized (WeatherProperty.class)
-            {
-                if (instance == null)
-                {
-                    instance = new WeatherProperty();
-                }
-            }
-        }
-        return instance;
+        return new WeatherParameter(getPropertyHolder());
     }
 
     public String getWeatherForecastUrl()

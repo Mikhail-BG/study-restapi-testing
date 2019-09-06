@@ -4,15 +4,28 @@ import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 
-public abstract class AbstractPropertyHolder
+public abstract class AbstractPropertyHolder<T>
 {
     private String propertyFileName;
+    private T parameters;
 
     protected AbstractPropertyHolder(String propertyFileName)
     {
         this.propertyFileName = propertyFileName;
+        this.parameters = loadParameters();
     }
 
+    /**
+     * Load parameters from the file.
+     *
+     * @return all parameters.
+     * */
+    public abstract T loadParameters();
+
+    /**
+     * Returns loaded properties from the file.
+     * @return loaded properties
+     * */
     public Properties getProperties()
     {
         if (StringUtils.isEmpty(propertyFileName))
@@ -27,8 +40,13 @@ public abstract class AbstractPropertyHolder
         return propertyFileName;
     }
 
-    public void setPropertyFileName(String propertyFileName)
+    public T getParameters()
     {
-        this.propertyFileName = propertyFileName;
+        return parameters;
+    }
+
+    protected AbstractPropertyHolder getPropertyHolder()
+    {
+        return this;
     }
 }
