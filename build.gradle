@@ -28,6 +28,7 @@ dependencies {
     implementation 'io.rest-assured:rest-assured:+'
     implementation 'log4j:log4j:+'
     implementation 'org.apache.commons:commons-collections4:+'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:+'
     implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:+'
 }
 
