@@ -3,7 +3,7 @@ package com.study.restapi.weather;
 import org.apache.http.HttpStatus;
 import org.testng.annotations.Test;
 
-import com.study.restapi.config.property.weather.WeatherProperty;
+import com.study.restapi.config.property.properties.WeatherProperty;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -14,16 +14,12 @@ public class WeatherTest
     @Test
     public void test()
     {
-        WeatherProperty weatherProperty = new WeatherProperty();
-
         Response response = RestAssured
                 .given()
-                .param(weatherProperty.getParameters().getId().getParameter(),
-                        weatherProperty.getParameters().getId().getValue())
-                .param(weatherProperty.getParameters().getAppid().getParameter(),
-                        weatherProperty.getParameters().getAppid().getValue())
+                .param(WeatherProperty.ID.getParameter(), WeatherProperty.ID.getValue())
+                .param(WeatherProperty.APPID.getParameter(), WeatherProperty.APPID.getValue())
                 .when()
-                .get(weatherProperty.getWeatherForecastUrl());
+                .get(WeatherProperty.URL);
 
         response.then().assertThat().statusCode(HttpStatus.SC_OK);
 

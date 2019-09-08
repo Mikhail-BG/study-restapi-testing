@@ -1,23 +1,22 @@
-package com.study.restapi.config.property;
+package com.study.restapi.config.property.properties;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class BasicParameterProvider
+final class BasicParameterHolder
 {
     private static final Map<String, BasicParameter> LOOKUP = new HashMap<>();
 
-    private AbstractPropertyHolder abstractPropertyHolder;
-    private BasicParameter id;
-
-    protected BasicParameterProvider(AbstractPropertyHolder abstractPropertyHolder)
+    private BasicParameterHolder()
     {
-        this.abstractPropertyHolder = abstractPropertyHolder;
-        this.id = new BasicParameter("id", abstractPropertyHolder.getProperties().getProperty("id"));
-        updateLookup(id);
     }
 
-    protected static void updateLookup(BasicParameter... basicParameters)
+    public static BasicParameter findParameterByName(String parameterName)
+    {
+        return LOOKUP.get(parameterName);
+    }
+
+    static void updateLookup(BasicParameter... basicParameters)
     {
         for (BasicParameter basicParameter : basicParameters)
         {
@@ -25,27 +24,12 @@ public class BasicParameterProvider
         }
     }
 
-    public BasicParameter findParameterByName(String parameterName)
-    {
-        return LOOKUP.get(parameterName);
-    }
-
-    protected AbstractPropertyHolder getAbstractPropertyHolder()
-    {
-        return abstractPropertyHolder;
-    }
-
-    public BasicParameter getId()
-    {
-        return id;
-    }
-
     public static class BasicParameter
     {
         private String parameter;
         private String value;
 
-        public BasicParameter(String parameter, String value)
+        BasicParameter(String parameter, String value)
         {
             this.parameter = parameter;
             this.value = value;

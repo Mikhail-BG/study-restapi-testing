@@ -21,7 +21,7 @@ public final class PropertyLoader
      * @param propertyFileName filename of property file.
      * @return loaded properties from file.
      */
-    static Properties getProperties(String propertyFileName)
+    public static Properties getProperties(String propertyFileName)
     {
         final Properties properties = new Properties();
         final InputStream inputStream = PropertyLoader.class.getResourceAsStream(propertyFileName);
